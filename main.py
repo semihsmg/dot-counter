@@ -5,7 +5,10 @@ cv2.namedWindow("output", cv2.WINDOW_NORMAL)
 
 img = cv2.imread('Monocyte_40x.JPG', 0)
 
-circles = cv2.HoughCircles(img, cv2.HOUGH_GRADIENT, dp=1, minDist=50, param1=180, param2=22, minRadius=10, maxRadius=60)
+# https://docs.opencv.org/4.x/dd/d1a/group__imgproc__feature.html#ga47849c3be0d0406ad3ca45db65a25d2d
+# https://docs.opencv.org/4.x/da/d53/tutorial_py_houghcircles.html
+# adjust HoughCircles parameters for each different image
+circles = cv2.HoughCircles(img, cv2.HOUGH_GRADIENT, dp=1, minDist=30, param1=150, param2=25, minRadius=10, maxRadius=80)
 
 if circles is not None:
     circles = numpy.round(circles[0, :]).astype("int")
@@ -19,10 +22,10 @@ if circles is not None:
     print('No. of circles detected = {}'.format(index))
 
     # outSized = cv2.resize(output, (950, 950))
-    outSized = cv2.resize(img, (950, 950))
+    # outSized = cv2.resize(img, (950, 950))
     # imgSized = cv2.resize(img, (950, 950))
 
-    cv2.imshow("output", outSized)
+    cv2.imshow("output", img)
     # cv2.imshow("output", numpy.hstack([imgSized, outSized]))
 
     cv2.waitKey(0)
